@@ -1,5 +1,5 @@
 @{
-RootModule = 'ScaroPro.PowerShell.SystemTray.psm1'
+RootModule = 'SystemTray.psm1'
 ModuleVersion = '1.0.0'
 GUID = '40b58d0a-e7b0-4289-8b53-9928168f4e5d'
 Author = 'Scaro.Pro'
@@ -12,6 +12,6 @@ CmdletsToExport = @()
 AliasesToExport = 'rstray'
 PrivateData = @{
     PSData = @{
-    } 
-} 
+    }
+}
 }
