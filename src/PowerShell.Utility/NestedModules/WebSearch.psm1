@@ -25,11 +25,11 @@ function Get-WebSearch {
 
         foreach($k in $ht.Keys) {
             $v = $ht[$k]
-            $all.Add([PSCustomObject]@{
+            $all += [PSCustomObject]@{
                 Key = $k
                 Name = $v.name
                 Url = $v.url
-            })
+            }
         }
 
         $filtered = [ordered]@{}

@@ -5,15 +5,16 @@ Author = 'rnovo'
 CompanyName = 'rnovo'
 Copyright = '(c) rnovo, 2025'
 Description = 'The Utility module.'
-NestedModules = @('NestedModules\Password.psm1',
-               'NestedModules\VisualStudio.psm1',
-               'NestedModules\VSCode.psm1')
-FunctionsToExport = 'Assert-WindowsPlatform', 'Test-PasswordStrength',
-               'Get-RandomPassword', 'Get-VisualStudio', 'Start-VisualStudio',
-               'Get-VSCode', 'Start-VSCode'
+NestedModules = @('NestedModules\Password.psm1', 
+               'NestedModules\VisualStudio.psm1', 
+               'NestedModules\VSCode.psm1', 
+               'NestedModules\WebSearch.psm1')
+FunctionsToExport = 'Test-PasswordStrength', 'Get-RandomPassword', 'Get-VisualStudio', 
+               'Start-VisualStudio', 'Get-VSCode', 'Start-VSCode', 'Search-Bing', 
+               'Search-MS', 'Search-Web', 'Get-WebSearch', 'Search-Api'
 CmdletsToExport = @()
 VariablesToExport = '*'
-AliasesToExport = 'tpwd', 'gpwd', 'savs', 'sacode'
+AliasesToExport = 'tpwd', 'gpwd', 'savs', 'sacode', 'gwse', 'srbing', 'srapi', 'srms', 'srweb'
 PrivateData = @{
     PSData = @{
     } # End of PSData hashtable
