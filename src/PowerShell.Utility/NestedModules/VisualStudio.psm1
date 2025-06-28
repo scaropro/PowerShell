@@ -1,14 +1,17 @@
 $ErrorActionPreference = "Stop"
 
 function Get-VisualStudio {
-    Assert-WindowsPlatform
-    $vs = "$env:ProgramFiles\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe"
+    if($IsWindows) {
+        $vs = "$env:ProgramFiles\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe"
 
-    if(-not (Get-Command $vs -ErrorAction SilentlyContinue)) {
-       Write-Error 'The Visual Studio executable is not found.'
+        if(-not (Get-Command $vs -ErrorAction SilentlyContinue)) {
+            Write-Error 'The Visual Studio executable is not found.'
+        }
+
+        return $vs
     }
 
-    return $vs
+    Write-Error "The $($PSVersionTable.Platform) is not supported."
 }
 
 function Start-VisualStudio {

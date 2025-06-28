@@ -4,11 +4,11 @@ $ErrorActionPreference = "Stop"
 function Get-VSCode {
     $code = $IsWindows ? "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd" : (which code)
 
-    if(-not (Get-Command $code -ErrorAction SilentlyContinue)) {
-       Write-Error 'The VS Code executable is not found.'
+    if(Get-Command $code -ErrorAction SilentlyContinue) {
+        return $code
     }
 
-    return $code
+    Write-Error 'The VS Code executable is not found.'
 }
 
 function Start-VSCode {
