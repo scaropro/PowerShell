@@ -5,16 +5,20 @@ Author = 'rnovo'
 CompanyName = 'rnovo'
 Copyright = '(c) rnovo, 2025'
 Description = 'The Utility module.'
-NestedModules = @('NestedModules\Password.psm1', 
+NestedModules = @('NestedModules\Content.psm1', 
+               'NestedModules\Password.psm1', 
                'NestedModules\VisualStudio.psm1', 
                'NestedModules\VSCode.psm1', 
                'NestedModules\WebSearch.psm1')
-FunctionsToExport = 'Test-PasswordStrength', 'Get-RandomPassword', 'Get-VisualStudio', 
-               'Start-VisualStudio', 'Get-VSCode', 'Start-VSCode', 'Search-Bing', 
-               'Search-MS', 'Search-Web', 'Get-WebSearch', 'Search-Api'
+FunctionsToExport = 'Update-ContentEolToUnix', 'Compare-Content', 'Update-Content', 
+               'Update-ContentEol', 'Update-ContentEolToDos', 'Get-RandomPassword', 
+               'Test-PasswordStrength', 'Start-VisualStudio', 'Get-VisualStudio', 
+               'Get-VSCode', 'Start-VSCode', 'Search-Web', 'Search-MS', 'Search-Bing', 
+               'Search-Api', 'Get-WebSearch'
 CmdletsToExport = @()
 VariablesToExport = '*'
-AliasesToExport = 'tpwd', 'gpwd', 'savs', 'sacode', 'gwse', 'srbing', 'srapi', 'srms', 'srweb'
+AliasesToExport = 'unix2dos', 'crc', 'udeol', 'fdiff', 'dos2unix', 'udc', 'sed', 'gpwd', 'tpwd', 
+               'savs', 'sacode', 'srapi', 'srbing', 'srweb', 'gwse', 'srms'
 PrivateData = @{
     PSData = @{
     } # End of PSData hashtable
