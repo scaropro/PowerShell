@@ -1,5 +1,5 @@
 @{
-RootModule = 'PowerShell.Develop.psm1'
+RootModule = 'Sontar.PowerShell.Develop.psm1'
 ModuleVersion = '1.0.0'
 GUID = '24ff383f-1dff-4c5d-a3e4-e94313849875'
 Author = 'rnovo'
