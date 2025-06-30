@@ -1,4 +1,5 @@
 @{
+RootModule = 'Sontar.PowerShell.Utility.psm1'
 ModuleVersion = '1.0.0'
 GUID = 'b19e8c97-93b2-4dfd-9cd8-de4d77e225b7'
 Author = 'rnovo'
@@ -6,19 +7,21 @@ CompanyName = 'rnovo'
 Copyright = '(c) rnovo, 2025'
 Description = 'The Utility module.'
 NestedModules = @('NestedModules\Content.psm1', 
+               'NestedModules\Env.psm1', 
                'NestedModules\Password.psm1', 
                'NestedModules\VisualStudio.psm1', 
                'NestedModules\VSCode.psm1', 
                'NestedModules\WebSearch.psm1')
-FunctionsToExport = 'Update-ContentEolToUnix', 'Compare-Content', 'Update-Content', 
-               'Update-ContentEol', 'Update-ContentEolToDos', 'Get-RandomPassword', 
-               'Test-PasswordStrength', 'Start-VisualStudio', 'Get-VisualStudio', 
-               'Get-VSCode', 'Start-VSCode', 'Search-Web', 'Search-MS', 'Search-Bing', 
-               'Search-Api', 'Get-WebSearch'
+FunctionsToExport = 'Assert-Command', 'Assert-Windows', 'Update-ContentEolToDos', 
+               'Update-ContentEol', 'Compare-Content', 'Update-Content', 
+               'Update-ContentEolToUnix', 'Import-Env', 'Test-PasswordStrength', 
+               'Get-RandomPassword', 'Start-VisualStudio', 'Get-VisualStudio', 
+               'Start-VSCode', 'Get-VSCode', 'Search-Bing', 'Get-WebSearch', 
+               'Search-Web', 'Search-Api', 'Search-MS'
 CmdletsToExport = @()
 VariablesToExport = '*'
-AliasesToExport = 'unix2dos', 'crc', 'udeol', 'fdiff', 'dos2unix', 'udc', 'sed', 'gpwd', 'tpwd', 
-               'savs', 'sacode', 'srapi', 'srbing', 'srweb', 'gwse', 'srms'
+AliasesToExport = 'udc', 'udeol', 'dos2unix', 'sed', 'crc', 'fdiff', 'unix2dos', 'ipenv', 'tpwd', 
+               'gpwd', 'savs', 'sacode', 'srbing', 'srms', 'gwse', 'srapi', 'srweb'
 PrivateData = @{
     PSData = @{
     } # End of PSData hashtable
