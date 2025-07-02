@@ -12,12 +12,12 @@ function Import-HtmlAgilityPack {
 function Get-Html {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory, Position = 0, ParameterSetName = 'ByUri', ValueFromPipeline,
+        [Parameter(Mandatory, ParameterSetName = 'ByUri', ValueFromPipeline,
             ValueFromPipelineByPropertyName)]
         [uri]
         $Uri,
 
-        [Parameter(Mandatory, Position = 0, ParameterSetName = 'ByPath', ValueFromPipeline,
+        [Parameter(Mandatory, ParameterSetName = 'ByPath', ValueFromPipeline,
             ValueFromPipelineByPropertyName)]
         [SupportsWildcards()]
         [string]
