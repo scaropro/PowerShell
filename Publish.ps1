@@ -7,14 +7,14 @@ param (
     [Parameter(Position = 0, ValueFromPipeline, ValueFromPipelineByPropertyName)]
     [SupportsWildcards()]
     [ArgumentCompleter({
-        $prefix = "FkThat.PowerShell"
-        Join-Path $PSScriptRoot '..' 'Modules' |
-            Get-ChildItem "$PSScriptRoot/../src" -Directory -Filter "$prefix.$($args[2])*" |
+        $prefix = "Sontar.PowerShell"
+        Join-Path $PSScriptRoot 'src' |
+            Get-ChildItem -Directory -Filter "$prefix.$($args[2])*" |
             ForEach-Object { $_.Name.Substring($prefix.Length + 1) }
 
     })]
     [string[]]
-    # The name of the module (e.g. FkThat.PowerShell.*).
+    # The short name of the module.
     $Name = "*",
 
     [Parameter()]
@@ -55,18 +55,18 @@ if(-not $ApiKey) {
     $ApiKey = ConvertFrom-SecureString $secret.Password -AsPlainText
 }
 
-$prefix = "FkThat.PowerShell"
-$moduleRoot = Join-Path $PSScriptRoot '..' 'Modules'
+$prefix = "Sontar.PowerShell"
+$moduleRoot = Join-Path $PSScriptRoot 'src'
 
 foreach($modName in $Name) {
     $psd = Join-Path $moduleRoot "$prefix.$modName" "$prefix.$modName.psd1"
     $ver = (Get-Content $psd -Raw | Invoke-Expression).ModuleVersion
 
     if(-not (Find-PSResource "$prefix.$modName" -Version $ver -Repository GitHub -ErrorAction SilentlyContinue)) {
-        Write-Host "Publish $modName."
+        Write-Host "Publishing $modName."
         Publish-PSResource $psd -Repository GitHub -ApiKey $ApiKey -ErrorAction Continue
     }
     else {
-        Write-Host "Skip $modName."
+        Write-Host "Skipping $modName."
     }
 }
