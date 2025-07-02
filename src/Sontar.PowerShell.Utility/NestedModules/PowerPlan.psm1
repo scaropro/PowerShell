@@ -1,9 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-if(-not $IsWindows) {
-    Write-Error "The '$($PSVersionTable.Platform)' platform is not supported."
-}
-
 function Get-PowerPlan {
     param (
         [Parameter(Position = 0, ValueFromPipeline, ValueFromPipelineByPropertyName)]
@@ -19,6 +15,8 @@ function Get-PowerPlan {
     )
 
     begin {
+        Assert-Windows
+
         $all = powercfg /l | Select-Object -Skip 2 |
             ForEach-Object {
                 if($_ -match ':\s*(\S+)\s+\(([^\)]+)\)\s*(\*)?') {
@@ -58,6 +56,8 @@ function Switch-PowerPlan {
         [ValidateSet([PowerPlanValidateSetGenerator])]
         $Name
     )
+
+    Assert-Windows
 
     Get-PowerPlan |
         Where-Object Name -Eq $Name |
