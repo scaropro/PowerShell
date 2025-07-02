@@ -1,9 +1,12 @@
 $ErrorActionPreference = "Stop"
 
-$rgen = $IsWindows ? "$env:USERPROFILE\.dotnet\tools\reportgenerator.exe" : (which reportgenerator)
+function Get-ReportGenerator {
+    $rgen = $IsWindows ? "$env:USERPROFILE\.dotnet\tools\reportgenerator.exe" :
+         (which reportgenerator)
 
-if(-not (Get-Command $rgen -ErrorAction SilentlyContinue)) {
-    Write-Error "The '$rgen' executable is not found."
+    Assert-Command $rgen
+
+    return $rgen
 }
 
 function New-CodeCoverageReport {
@@ -16,6 +19,8 @@ function New-CodeCoverageReport {
         [switch]
         $Show
     )
+
+    $rgen = Get-ReportGenerator
 
     if(-not $OutDir) {
         $p = [System.IO.Path]
