@@ -44,20 +44,26 @@ function Update-Content {
         $End = {}
     )
 
+    begin {
+        $paths = @{}
+    }
+
     process {
         $Path | Get-Item -ErrorAction SilentlyContinue |
             Where-Object { $_ -is [System.IO.FileInfo] } |
-            Select-Object -ExpandProperty FullName -Unique |
-            ForEach-Object {
-                $src = $_
-                $tmp = [System.IO.Path]::GetTempFileName()
+            ForEach-Object { $paths[$_.FullName] = $true }
+    }
 
-                Get-Content $src |
-                    ForEach-Object -Begin $Begin -Process $Process -End $End |
-                    Out-File $tmp -Force
+    end {
+        $paths.Keys | ForEach-Object {
+            $tmp = [System.IO.Path]::GetTempFileName()
 
-                Move-Item $tmp $src -Force
-            }
+            Get-Content $_ |
+                ForEach-Object -Begin $Begin -Process $Process -End $End |
+                Out-File $tmp -Force
+
+            Move-Item $tmp $_ -Force
+        }
     }
 }
 
