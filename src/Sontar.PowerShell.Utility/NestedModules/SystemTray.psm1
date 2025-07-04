@@ -1,10 +1,8 @@
 $ErrorActionPreference = "Stop"
 
-if(-not $IsWindows) {
-    Write-Error "The '$($PSVersionTable.Platform)' platform is not supported."
-}
-
 function Reset-SystemTray {
+    Assert-Windows
+
     Stop-Process -Name 'explorer' -Force -ErrorAction Stop
 
     Remove-Item 'HKCU:\Control Panel\NotifyIconSettings' -Recurse -Force `
@@ -16,5 +14,3 @@ function Reset-SystemTray {
 
     Start-Process 'explorer'
 }
-
-Set-Alias rstray Reset-SystemTray
