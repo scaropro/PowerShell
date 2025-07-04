@@ -9,6 +9,4 @@ function Get-ParentProcess {
 }
 
 Set-Alias pscur Get-CurrentProcess
-Set-Alias gpscur Get-CurrentProcess
 Set-Alias pspar Get-ParentProcess
-Set-Alias gpspar Get-ParentProcess

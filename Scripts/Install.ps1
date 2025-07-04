@@ -10,7 +10,6 @@ function InstallFromPSGallery($Name) {
 
 function InstallFromGitHub([string[]] $Name) {
     foreach($n in $Name) {
-        $n = "FkThat.PowerShell.$n"
         Write-Host "Installing $n"
         Install-PSResource $n -Repository GitHub `
             -Reinstall -WarningAction SilentlyContinue
@@ -21,21 +20,15 @@ $moduleRoot = $IsWindows ?
     "$env:USERPROFILE\Documents\PowerShell\Modules" :
     "$env:HOME/.local/share/powershell/Modules"
 
-foreach($moduleDir in (Get-ChildItem $moduleRoot -Filter "FkThat.PowerShell.*")) {
+foreach($moduleDir in (Get-ChildItem $moduleRoot -Filter "Sontar.PowerShell.*")) {
     Rename-Item $moduleDir $moduleDir.Name.ToLowerInvariant() -ErrorAction SilentlyContinue
 }
 
-InstallFromGitHub "Profile", "PasswordGen", "Content",
-
-$gh = $IsWindows ? "$env:ProgramFiles\GitHub CLI\gh.exe" : (which gh)
-
-if(Test-Path $gh -ErrorAction SilentlyContinue) {
-    InstallFromGitHub "GitHub"
-}
+InstallFromGitHub "Sontar.PowerShell.Profile",
+    "Sontar.PowerShell.Utility"
 
 if(Get-Command git -ErrorAction SilentlyContinue) {
     InstallFromPSGallery "Posh-Git"
-    InstallFromGitHub "Git"
 }
 
 $docker = $IsWindows ?
@@ -46,28 +39,11 @@ if(Test-Path $docker -ErrorAction SilentlyContinue) {
     InstallFromPSGallery "DockerCompletion"
 }
 
-$rgen = $IsWindows ?
-    "$env:USERPROFILE\.dotnet\tools\reportgenerator.exe" :
-    (which reportgenerator)
-
-if(Test-Path $rgen -ErrorAction SilentlyContinue) {
-    InstallFromGitHub 'CodeCoverage'
-}
-
-if($IsWindows) {
-    if(Test-Path "$env:LOCALAPPDATA\Microsoft\WindowsApps\winget.exe") {
-        InstallFromGitHub 'WinGet'
-    }
-
-    InstallFromGitHub 'Aliases', 'Environment', 'PowerPlan',
-        'SysTray', 'Process', 'WebSearch'
-}
-
 #
 # Capitalize modules
 #
 
-foreach($moduleDir in (Get-ChildItem $moduleRoot -Filter "FkThat.PowerShell.*")) {
+foreach($moduleDir in (Get-ChildItem $moduleRoot -Filter "Sontar.PowerShell.*")) {
     foreach($moduleVersionDir in (Get-ChildItem $moduleDir)) {
         $modulePsdFile = Get-ChildItem $moduleVersionDir -Filter "$($moduleDir.Name).psd1" |
             Select-Object -First 1
@@ -100,5 +76,6 @@ foreach($moduleDir in (Get-ChildItem $moduleRoot -Filter "FkThat.PowerShell.*"))
     Rename-Item $moduleDir -NewName $moduleName -ErrorAction SilentlyContinue
 }
 
+# Create or update $PROFILE
 Set-Content $PROFILE '$ErrorActionPreference = "Stop"'
-Add-Content $PROFILE 'Import-Module FkThat.PowerShell.Profile'
+Add-Content $PROFILE 'Import-Module Sontar.PowerShell.Profile'
